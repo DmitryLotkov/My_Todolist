@@ -1,0 +1,21 @@
+.App {
+  padding: 30px;
+  display: flex;
+}
+
+.App > div {
+  margin-right: 50px;
+}
+.error{
+  color: red
+}
+.red{
+
+  border: red 2px solid;
+}
+.activeFilter {
+  background-color: aquamarine;
+}
+.completedTask {
+  opacity: 0.5;
+}
