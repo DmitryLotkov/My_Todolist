@@ -4,11 +4,13 @@ import {FilterValueType, StateType} from "./App";
 export type todoListPropsType = {
     title: string
     tasks: StateType
-    removeTask: (taskID: string) => void
-    addTask: (inputData: string) => void
-    changeStatus: (isDone: boolean, taskID: string) => void
-    changeFilter: (filter:FilterValueType) => void
+    removeTask: (taskID: string, todoListID: string) => void
+    addTask: (inputData: string, todoListID: string) => void
+    changeStatus: (isDone: boolean, taskID: string, todoListID: string) => void
+    changeFilter: (filter: FilterValueType, todoListID: string) => void
     filter: FilterValueType
+    todoListID: string
+    removeTodoLists: (todoListID: string) => void
 }
 
 
@@ -17,40 +19,47 @@ export function TodoList(props: todoListPropsType) {
     let [inputData, setInputData] = useState("");
 
     const addTask = () => {
-        if(inputData.trim() != ""){
-            props.addTask(inputData);
-        }else{
+
+        if (inputData.trim() !== "") {
+            props.addTask(inputData, props.todoListID);
+        } else {
             setError("Title is required!")
         }
         setInputData("");
     }
     const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if(e.currentTarget.value){
+        if (e.currentTarget.value) {
             setError(null)
         }
         setInputData(e.currentTarget.value);
     }
-    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLElement>) =>{
-        if(e.charCode === 13) {
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.charCode === 13) {
             addTask();
         }
     }
     const changeFilterAll = () => {
-        props.changeFilter("all");
+        props.changeFilter("all", props.todoListID);
     }
-    const changeFilterCompleted = () =>{
-        props.changeFilter("completed");
+    const changeFilterCompleted = () => {
+        props.changeFilter("completed", props.todoListID);
     }
-    const changeFilterActive = () =>{
-        props.changeFilter("active");
+    const changeFilterActive = () => {
+
+        props.changeFilter("active", props.todoListID);
     }
+    const deleteTodoList = () => props.removeTodoLists(props.todoListID)
     const todolist = props.tasks.map(t => {
 
+
         let removeTask = () => {
-            props.removeTask(t.id);
+            props.removeTask(t.id, props.todoListID);
         }
-        let changeStatus = (e:ChangeEvent<HTMLInputElement>) => {
-            props.changeStatus(e.currentTarget.checked, t.id)
+        let changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+            debugger
+            console.log(e.currentTarget.checked)
+            props.changeStatus(e.currentTarget.checked, t.id, props.todoListID)
+
         }
 
         return (
@@ -59,7 +68,7 @@ export function TodoList(props: todoListPropsType) {
                     <input type="checkbox"
                            onChange={changeStatus}
                            checked={t.isDone}
-                           className={ t.isDone ? "completedTask":""}/>
+                           className={t.isDone ? "completedTask" : ""}/>
                     <span>{t.title}</span>
                     <button onClick={removeTask}>x</button>
 
@@ -69,7 +78,12 @@ export function TodoList(props: todoListPropsType) {
     return (
         <div>
             <div>
-                <h3>{props.title}</h3>
+                <div>
+                    <h3>{props.title}
+                        <button onClick={deleteTodoList}>x</button>
+                    </h3>
+                </div>
+
                 <div>
                     <input autoFocus={true}
                            className={error && "red"}
@@ -78,13 +92,18 @@ export function TodoList(props: todoListPropsType) {
                            onChange={onchangeHandler}
                     />
                     <button onClick={addTask}>+</button>
-                    {error&& <div className={"error"}>{error}</div>}
+                    {error && <div className={"error"}>{error}</div>}
                 </div>
                 {todolist}
                 <div>
-                    <button className={props.filter === "all" ? "activeFilter": ""} onClick={changeFilterAll}>All</button>
-                    <button className={props.filter === "active" ? "activeFilter": ""} onClick={changeFilterActive}>Active</button>
-                    <button className={props.filter === "completed" ? "activeFilter": ""} onClick={changeFilterCompleted}>Completed</button>
+                    <button className={props.filter === "all" ? "activeFilter" : ""} onClick={changeFilterAll}>All
+                    </button>
+                    <button className={props.filter === "active" ? "activeFilter" : ""}
+                            onClick={changeFilterActive}>Active
+                    </button>
+                    <button className={props.filter === "completed" ? "activeFilter" : ""}
+                            onClick={changeFilterCompleted}>Completed
+                    </button>
                 </div>
             </div>
         </div>
