@@ -1,10 +1,15 @@
 import React, {ChangeEvent, useState} from "react";
+import {IconButton} from "@material-ui/core";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+
+import TextField from "@material-ui/core/TextField";
 
 type AddItemFormType = {
 
     addItem: (title: string) => void
 }
-export function AddItemForm(props: AddItemFormType){
+
+export function AddItemForm(props: AddItemFormType) {
 
     let [inputData, setInputData] = useState("");
     let [error, setError] = useState()
@@ -32,15 +37,19 @@ export function AddItemForm(props: AddItemFormType){
 
     return (
         <div>
-            <input placeholder={"Enter a title..."}
-                   autoFocus={true}
-                   className={error && "red"}
-                   onKeyPress={onKeyPressHandler}
-                   value={inputData}
-                   onChange={onchangeHandler}
+            <TextField
+                label={"Enter a title..."}
+                autoFocus={true}
+                error={error}
+                onKeyPress={onKeyPressHandler}
+                value={inputData}
+                onChange={onchangeHandler}
+                variant={"outlined"}
+                helperText={error && 'Title is required!'}
             />
-            <button onClick={addItem}>+</button>
-            {error && <div className={"error"}>{error}</div>}
+            <IconButton onClick={addItem}>
+                <AddCircleIcon color={"primary"}/>
+            </IconButton>
         </div>
     );
 }

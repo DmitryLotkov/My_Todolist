@@ -1,21 +1,24 @@
-.App {
-  padding: 30px;
+.deleteLi{
   display: flex;
+  justify-content: space-between;
+}
+.todolist{
+  margin-top: 1rem;
+}
+.buttons{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.editableSpan{
+  width: 10rem;
+}
+.title{
+  display: flex;
+  justify-content: center;
+}
+.whatToLearn{
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
-.App > div {
-  margin-right: 50px;
-}
-.error{
-  color: red
-}
-.red{
-
-  border: red 2px solid;
-}
-.activeFilter {
-  background-color: aquamarine;
-}
-.completedTask {
-  opacity: 0.5;
-}
