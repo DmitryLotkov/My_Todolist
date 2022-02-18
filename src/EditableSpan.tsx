@@ -10,11 +10,9 @@ export function EditableSpan (props:EditablePropsType){
     let [editMode, setEditMode] = useState<boolean>(false);
     let [title, setTitle] = useState<string>(props.title)
     const OnEditMode = () => {
-        debugger
         setEditMode(true)
     }
     const offEditMode = () => {
-        debugger
         setEditMode(false);
         props.setNewTitle(title)
     }
