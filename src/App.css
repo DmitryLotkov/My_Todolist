@@ -1,0 +1,38 @@
+.deleteLi {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    border: 1px solid #AFAFAF;
+}
+
+.todolist {
+    margin-top: 1rem;
+}
+
+.buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editableSpan {
+    width: 10rem;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.whatToLearn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.EditableSpanWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+
+}
