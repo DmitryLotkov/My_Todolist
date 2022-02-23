@@ -31,7 +31,9 @@ export function EditableSpan (props:EditablePropsType){
                        autoFocus={true}
                        onBlur={offEditMode}
                        onChange={onChangeHandler}/> :
-            <span onDoubleClick={OnEditMode}>{title}</span>
+            <span className={"EditableSpanWrapper"}>
+                <span onDoubleClick={OnEditMode}>{title}</span>
+            </span>
 
     )
 }
