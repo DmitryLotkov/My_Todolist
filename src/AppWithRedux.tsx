@@ -33,8 +33,8 @@ export type taskType = {
     id: string, title: string, isDone: boolean
 }
 
-export function AppWithRedux() {
-    console.log("AppWithRedux")
+export const AppWithRedux = React.memo(() => {
+
     let dispatch = useDispatch();
     let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
     let todoLists = useSelector<AppRootStateType, Array<TodoListType>>(state => state.toDoLists);
@@ -82,7 +82,7 @@ const TodoListsJSX = todoLists.map(t => {
 
     return (
         <Grid item key={t.id}>
-            <Paper elevation={2} style={{padding: "1rem"}}>
+            <Paper elevation={1} style={{padding: "1rem"}}>
                 <TodoList
                     title={t.title}
                     tasks={tasks[t.id]}
@@ -129,7 +129,7 @@ const TodoListsJSX = todoLists.map(t => {
         </div>
     );
 
-}
+})
 
 
 

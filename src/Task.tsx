@@ -24,18 +24,21 @@ export const Task = React.memo(({toDoListID, taskID}:TaskPropsType) => {
     const onChangeHandler = useCallback((e:ChangeEvent<HTMLInputElement>) => {
         const newTaskStatus = e.currentTarget.checked;
         dispatch(changeTaskStatusAC(taskID, newTaskStatus, toDoListID))
-    },[dispatch, taskID, toDoListID])
+    },[dispatch, taskID, toDoListID]);
+
     const changeTitleHandler = useCallback((newValue: string) =>{
         dispatch(changeTaskTitleAC(taskID, newValue, toDoListID ))
     },[dispatch, taskID, toDoListID]);
 
     const onClickHandler = useCallback(() =>{
         dispatch(removeTaskAC(taskID, toDoListID))
-    },[taskID, toDoListID, dispatch])
+    },[taskID, toDoListID, dispatch]);
+
     return (
 
         <div className={"todolist"}>
             <div className={"deleteLi"}>
+
                 <Checkbox color={"primary"}
                           onChange={onChangeHandler}
                           checked={task.isDone}
@@ -43,6 +46,7 @@ export const Task = React.memo(({toDoListID, taskID}:TaskPropsType) => {
                 <EditableSpan title={task.title} setNewTitle={changeTitleHandler}/>
                 <IconButton onClick={onClickHandler}>
                     <Close fontSize={"small"} color={"primary"}/>
+
                 </IconButton>
             </div>
         </div>)
