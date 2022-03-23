@@ -6,33 +6,33 @@ import {IconButton} from "@material-ui/core";
 import {Close} from "@material-ui/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Reducers/state";
-import {taskType} from "./AppWithRedux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./Reducers/task-reducer";
+import {updateTaskTC, deleteTask} from "./Reducers/task-reducer";
+import {TaskDataType, TaskStatuses} from "./api/taskAPI";
 
 export type TaskPropsType = {
     toDoListID: string
     taskID: string
 }
 
-export const Task = React.memo(({toDoListID, taskID}:TaskPropsType) => {
+export const Task = React.memo(({toDoListID, taskID}: TaskPropsType) => {
 
     const dispatch = useDispatch();
-
-    const task = useSelector<AppRootStateType, taskType>(state => state.tasks[toDoListID]
+    const task = useSelector<AppRootStateType, TaskDataType>(state => state.tasks[toDoListID]
         .filter(task => task.id === taskID)[0]);
 
-    const onChangeHandler = useCallback((e:ChangeEvent<HTMLInputElement>) => {
+    const changeTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const newTaskStatus = e.currentTarget.checked;
-        dispatch(changeTaskStatusAC(taskID, newTaskStatus, toDoListID))
-    },[dispatch, taskID, toDoListID]);
+        const status: number = newTaskStatus ? TaskStatuses.Completed : TaskStatuses.New;
+        dispatch(updateTaskTC(toDoListID, taskID, {status}))
+    }, [dispatch, taskID, toDoListID]);
 
-    const changeTitleHandler = useCallback((newValue: string) =>{
-        dispatch(changeTaskTitleAC(taskID, newValue, toDoListID ))
-    },[dispatch, taskID, toDoListID]);
+    const changeTaskTitle = useCallback((newValue: string) => {
+        dispatch(updateTaskTC(toDoListID, taskID, {title: newValue}));
+    }, [dispatch, taskID, toDoListID]);
 
-    const onClickHandler = useCallback(() =>{
-        dispatch(removeTaskAC(taskID, toDoListID))
-    },[taskID, toDoListID, dispatch]);
+    const removeTask = useCallback(() => {
+        dispatch(deleteTask(toDoListID, taskID));
+    }, [taskID, toDoListID, dispatch]);
 
     return (
 
@@ -40,11 +40,11 @@ export const Task = React.memo(({toDoListID, taskID}:TaskPropsType) => {
             <div className={"deleteLi"}>
 
                 <Checkbox color={"primary"}
-                          onChange={onChangeHandler}
-                          checked={task.isDone}
-                          className={task.isDone ? "completedTask" : ""}/>
-                <EditableSpan title={task.title} setNewTitle={changeTitleHandler}/>
-                <IconButton onClick={onClickHandler}>
+                          onChange={changeTaskStatus}
+                          checked={task.status === TaskStatuses.Completed}
+                          className={task.status === TaskStatuses.Completed ? "completedTask" : ""}/>
+                <EditableSpan title={task.title} setNewTitle={changeTaskTitle}/>
+                <IconButton onClick={removeTask}>
                     <Close fontSize={"small"} color={"primary"}/>
 
                 </IconButton>

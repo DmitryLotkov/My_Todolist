@@ -1,8 +1,7 @@
 import React from 'react';
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import {Task} from "./Task";
-import ReduxStoreProviderDecorator, {taskID2} from "./ReduxStoreProviderDecorator";
-
+import ReduxStoreProviderDecorator from "./ReduxStoreProviderDecorator";
 
 
 
@@ -16,10 +15,12 @@ const Template: ComponentStory <typeof Task> = (args:any) => <Task {...args}/>
 
 export const TaskStory = Template.bind({});
 
-TaskStory.args ={
-    toDoListID: "todolistId1",
-    taskID: taskID2,
+
+TaskStory.args = {
+    toDoListID: "todolistId2",
+    taskID: "1",
 }
+
 
 
 
