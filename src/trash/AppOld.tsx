@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import './App.css';
+import '../app/App.css';
 import {v1} from "uuid";
-import {TodoList} from "./TodoList";
+import {TodoList} from "../pages/TodoListList/Todolists/TodoList";
 import {Menu} from "@material-ui/icons";
 import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import {AddItemForm} from "./AddItemForm";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import Paper from "@material-ui/core/Paper";
-import {TaskDataType, TaskPriorities, TaskStatuses} from "./api/taskAPI";
+import {TaskDataType, TaskPriorities, TaskStatuses} from "../api/taskAPI";
 
 
 export type FilterValueType = "all" | "active" | "completed"
@@ -25,7 +25,7 @@ export type taskType = {
     id: string, title: string, isDone: boolean
 }
 
-function App() {
+function AppOld() {
 
     let todoListID1 = v1();
     let todoListID2 = v1();
@@ -72,7 +72,7 @@ function App() {
     }
 
     return (
-        <div className={"App"}>
+        <div className={"AppOld"}>
 
             <AppBar position="static">
                 <Toolbar>
@@ -126,5 +126,5 @@ function App() {
 }
 
 
-export default App;
+export default AppOld;
 

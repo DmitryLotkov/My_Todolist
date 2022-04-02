@@ -1,24 +1,22 @@
 import React, {useCallback, useEffect} from "react";
-import {FilterValueType} from "./App";
-import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./EditableSpan";
+import {FilterValueType} from "../../../trash/AppOld";
+import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import {Task} from "./Task";
-import {TaskDataType, TaskStatuses} from "./api/taskAPI";
-import {createTask, getTasks} from "./Reducers/task-reducer";
+import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
+import {createTask, getTasks} from "../../../state/task-reducer";
 import {useDispatch} from "react-redux";
 
 
 export type todoListPropsType = {
     title: string
     tasks: Array<TaskDataType>
-    // changeStatus: (taskID: string, status: TaskStatuses, todoListID: string) => void
     changeFilter: (filter: FilterValueType, todoListID: string) => void
     filter: FilterValueType
     todoListID: string
     removeTodoLists: (todoListID: string) => void
-   /* changeTaskTitle: (title: string, taskID: string, todoListID: string) => void*/
     changeTodoListTitle: (title: string, todoListID: string) => void
 }
 

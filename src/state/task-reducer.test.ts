@@ -5,7 +5,7 @@ import {
     taskReducer,
     setTasksAC
 } from "./task-reducer";
-import {TasksStateType} from "../App";
+import {TasksStateType} from "../trash/AppOld";
 import {
     createTodoListAC,
     removeTodoListAC,

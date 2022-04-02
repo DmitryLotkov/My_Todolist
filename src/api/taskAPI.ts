@@ -10,7 +10,7 @@ export const instance = axios.create({
     baseURL: `https://social-network.samuraijs.com/api/1.1/todo-lists/`,
     ...settings
 })
-
+//types
 export type TodoListType = {
     id: string,
     title: string,
@@ -48,7 +48,6 @@ export type TaskDataType = {
     order: number
     addedDate: string
 }
-
 export type UpdateBodyType = {
     title: string,
     description: string,
@@ -64,6 +63,7 @@ export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}>
     data: D
 }
 
+//api
 export const taskAPI = {
     getTasks(todolistId: string) {
         return instance.get<GetTaskResponseType>(`${todolistId}/tasks`)
