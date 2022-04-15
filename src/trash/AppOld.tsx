@@ -2,13 +2,20 @@ import React, {useState} from 'react';
 import '../app/App.css';
 import {v1} from "uuid";
 import {TodoList} from "../pages/TodoListList/Todolists/TodoList";
-import {Menu} from "@material-ui/icons";
-import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import AppBar from '@mui/material/AppBar/AppBar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import MenuIcon from '@mui/icons-material/Menu';
+
+
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
-import Paper from "@material-ui/core/Paper";
+
 import {TaskDataType, TaskPriorities, TaskStatuses} from "../api/taskAPI";
+import IconButton from '@mui/material/IconButton/IconButton';
 
 
 export type FilterValueType = "all" | "active" | "completed"
@@ -77,7 +84,7 @@ function AppOld() {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6">
                         News

@@ -1,7 +1,9 @@
 import React, {ChangeEvent, useState} from "react";
-import {IconButton} from "@material-ui/core";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import TextField from "@material-ui/core/TextField";
+import IconButton from '@mui/material/IconButton';
+import TextField from "@mui/material/TextField/TextField";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import style from './AddItemForm.module.css';
+
 
 type AddItemFormType = {
     addItem: (title: string) => void
@@ -16,7 +18,7 @@ export const AddItemForm = React.memo(({addItem}: AddItemFormType)=> {
         if (inputData.trim() !== "") {
             addItem(inputData);
         } else {
-            setError("Title is required!")
+            setError("Title is required!");
         }
         setInputData("");
     }
@@ -38,20 +40,23 @@ export const AddItemForm = React.memo(({addItem}: AddItemFormType)=> {
     }
 
     return (
-        <div>
+        <div className={style.addItemFormWrapper}>
             <TextField
-                label={"Enter a title..."}
-                autoFocus={true}
-                error={!!error}
-                onKeyPress={onKeyPressHandler}
-                value={inputData}
-                onChange={onchangeHandler}
-                variant={"outlined"}
-                helperText={error && 'Title is required!'}
-            />
-            <IconButton onClick={addLetter}>
+            label={"Enter a title..."}
+            autoFocus={true}
+            error={!!error}
+            onKeyPress={onKeyPressHandler}
+            value={inputData}
+            onChange={onchangeHandler}
+            variant={"outlined"}
+            helperText={error && 'Title is required!'}
+        />
+            <div className={style.addItemButton}>
+                <IconButton onClick={addLetter}>
                 <AddCircleIcon color={"primary"}/>
             </IconButton>
+            </div>
         </div>
+
     );
 })

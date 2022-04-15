@@ -1,13 +1,12 @@
 import React, {ChangeEvent, useCallback} from "react";
-
-import Checkbox from "@material-ui/core/Checkbox";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
-import {IconButton} from "@material-ui/core";
-import {Close} from "@material-ui/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../state/state";
 import {updateTaskTC, deleteTask} from "../../../state/task-reducer";
 import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Checkbox from "@mui/material/Checkbox";
 
 export type TaskPropsType = {
     toDoListID: string
@@ -45,7 +44,7 @@ export const Task = React.memo(({toDoListID, taskID}: TaskPropsType) => {
                           className={task.status === TaskStatuses.Completed ? "completedTask" : ""}/>
                 <EditableSpan title={task.title} setNewTitle={changeTaskTitle}/>
                 <IconButton onClick={removeTask}>
-                    <Close fontSize={"small"} color={"primary"}/>
+                    <CloseIcon fontSize={"small"} color={"primary"}/>
 
                 </IconButton>
             </div>

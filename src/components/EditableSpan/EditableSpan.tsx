@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
-import {TextField} from "@material-ui/core";
-
+import TextField from '@mui/material/TextField';
 export type EditablePropsType = {
     title: string
     setNewTitle: (title: string) => void

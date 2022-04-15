@@ -1,0 +1,13 @@
+.addItemFormWrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.addItemButton {
+    position: absolute;
+   /* top: 10px;
+    left: 220px;*/
+    top: 0.6rem;
+    left: 13.65rem;
+}

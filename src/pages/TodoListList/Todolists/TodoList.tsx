@@ -2,13 +2,13 @@ import React, {useCallback, useEffect} from "react";
 import {FilterValueType} from "../../../trash/AppOld";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
-import {Button, IconButton} from "@material-ui/core";
-import {Delete} from "@material-ui/icons";
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import {Task} from "./Task";
 import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
 import {createTask, getTasks} from "../../../state/task-reducer";
 import {useDispatch} from "react-redux";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export type todoListPropsType = {
     title: string
@@ -56,7 +56,7 @@ export const TodoList = React.memo(({
 
     const changeTodolistTitle = useCallback((newValue:string) => {
         changeTodoListTitle(newValue, todoListID);
-    },[dispatch, todoListID]);
+    },[todoListID, changeTodoListTitle]);
 
 
     let tasksForTodoLists = tasks;
@@ -86,7 +86,7 @@ export const TodoList = React.memo(({
                             <EditableSpan title={title} setNewTitle={changeTodolistTitle}/>
                         </div>
                         <IconButton onClick={deleteTodoList}>
-                            <Delete color={"primary"}/>
+                            <DeleteIcon color={"primary"}/>
                         </IconButton>
                     </h3>
                 </div>

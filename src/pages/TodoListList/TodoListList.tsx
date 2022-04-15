@@ -8,11 +8,14 @@ import {
     getTodolists,
     TodoListDomainType
 } from "../../state/todolistsReducer";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+
 import {TodoList} from "./Todolists/TodoList";
-import Container from "@material-ui/core/Container";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
+
+
 
 export type FilterValueType = "all" | "active" | "completed"
 
