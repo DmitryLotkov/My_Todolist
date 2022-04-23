@@ -46,6 +46,10 @@ export const TodoListList:React.FC = () =>{
     },[dispatch]);
 
     const changeTodoListTitle = useCallback((title: string, todoListID: string) => {
+
+        if(title.length >100){
+           return
+        }
         dispatch(changeTodoListTitleTC(title, todoListID));
     },[dispatch]);
 
@@ -55,6 +59,7 @@ export const TodoListList:React.FC = () =>{
             <Grid item key={t.id}>
                 <Paper elevation={1} style={{padding: "1rem"}}>
                     <TodoList
+                        entityStatus={t.entityStatus}
                         title={t.title}
                         tasks={tasks[t.id]}
                         changeFilter={changeFilter}

@@ -14,7 +14,7 @@ export default {
 
 const callBack = action("Button `Add` was pressed inside the form")
 export const AddItemFormBaseExample = () =>{
-    return <AddItemForm addItem={callBack}/>
+    return <AddItemForm addItem={callBack} />
 }
 
 

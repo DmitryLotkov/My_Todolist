@@ -1,5 +1,5 @@
 import React, {useCallback, useReducer} from 'react';
-import '../app/App.css';
+import '../app/App.scss';
 import {v1} from "uuid";
 import {TodoList} from "../pages/TodoListList/Todolists/TodoList";
 import AppBar from '@mui/material/AppBar/AppBar';
@@ -35,8 +35,8 @@ export function AppWithReducer() {
     let todoListID2 = v1();
 
     let [todoLists, dispatchToDoList] = useReducer(todoListsReducer,[
-        {id: todoListID1, title: "What to learn", filter: "all", addedDate: "", order: 0},
-        {id: todoListID2, title: "What to buy", filter: "all", addedDate: "", order: 0},
+        {id: todoListID1, title: "What to learn", filter: "all", addedDate: "", order: 0, entityStatus:"idle"},
+        {id: todoListID2, title: "What to buy", filter: "all", addedDate: "", order: 0, entityStatus:"idle"},
     ])
     let [tasks, dispatchTasks] = useReducer(taskReducer,{
         [todoListID1]: [
@@ -62,7 +62,7 @@ export function AppWithReducer() {
         dispatchTasks(action);
     }
     const changeFilter = (filter: FilterValueType,todoListID: string ) => {
-        debugger
+
         let action = changeTodoListFilterAC(todoListID, filter);
         dispatchToDoList(action);
     }
@@ -109,9 +109,9 @@ export function AppWithReducer() {
                                 <Grid item key={t.id}>
                                     <Paper elevation={2} style={{padding: "1rem"}}>
                                         <TodoList
+                                            entityStatus={t.entityStatus}
                                             title={t.title}
                                             tasks={tasksForTodoLists}
-                                            /*changeStatus={changeStatus}*/
                                             changeFilter={changeFilter}
                                             filter={t.filter}
                                             todoListID={t.id}

@@ -16,8 +16,8 @@ let todolistId2 = v1();
 beforeEach(() => {
 
     startState = [
-        {id: todolistId1, title: "What to learn", filter: "all", order: 0, addedDate: ""},
-        {id: todolistId2, title: "What to buy", filter: "all", order: 0, addedDate: ""}]
+        {id: todolistId1, title: "What to learn", filter: "all", order: 0, addedDate: "", entityStatus:"idle"},
+        {id: todolistId2, title: "What to buy", filter: "all", order: 0, addedDate: "", entityStatus: "idle"}]
 })
 test('correct todolist should be removed', () => {
 
@@ -78,7 +78,8 @@ test('todolists should be set to the state', () => {
         title: "",
         addedDate: "",
         order: 0,
-        filter: "all"
+        filter: "all",
+        entityStatus: "idle"
     }
     ], action)
 

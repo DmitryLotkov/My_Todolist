@@ -18,8 +18,8 @@ export const taskID2 = v1();*/
 
 const initialGlobalState = {
     toDoLists: [
-        {id: "todolistId1", title: "What to learn", filter: "all", addedDate: "", order: 0},
-        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: "", order: 0}
+        {id: "todolistId1", title: "What to learn", filter: "all", addedDate: "", order: 0, entityStatus: "idle"},
+        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: "", order: 0, entityStatus: "idle"}
     ] ,
     tasks: {
         ["todolistId1"]: [
@@ -32,6 +32,10 @@ const initialGlobalState = {
             { id: "2", title: "milk", status: TaskStatuses.Completed, todoListId:"todolistId2", startDate: "", priority:0, order:0, description:"", deadline:"", addedDate:"" },
             { id: "3", title: "tea", status: TaskStatuses.Completed, todoListId:"todolistId2", startDate: "", priority:0, order:0, description:"", deadline:"", addedDate:"" }
         ]
+    },
+    app: {
+        status: "loading",
+        error: null,
     }
 };
 

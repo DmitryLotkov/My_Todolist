@@ -208,7 +208,7 @@ test('title of specified task should be changed', () => {
     const action = updateTaskAC("1","todolistId2" , {
         title:"butter",
     });
-debugger
+
     const endState = taskReducer(startState, action)
 
     expect(endState["todolistId1"][0].title).toBe("CSS");

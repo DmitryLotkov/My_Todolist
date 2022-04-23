@@ -7,13 +7,15 @@ import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Checkbox from "@mui/material/Checkbox";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 export type TaskPropsType = {
     toDoListID: string
     taskID: string
+    entityStatus: RequestStatusType
 }
 
-export const Task = React.memo(({toDoListID, taskID}: TaskPropsType) => {
+export const Task = React.memo(({toDoListID, taskID, entityStatus}: TaskPropsType) => {
 
     const dispatch = useDispatch();
     const task = useSelector<AppRootStateType, TaskDataType>(state => state.tasks[toDoListID]
@@ -32,20 +34,20 @@ export const Task = React.memo(({toDoListID, taskID}: TaskPropsType) => {
     const removeTask = useCallback(() => {
         dispatch(deleteTask(toDoListID, taskID));
     }, [taskID, toDoListID, dispatch]);
-
+    console.log("entityStatus in tasks", entityStatus)
     return (
 
         <div className={"todolist"}>
             <div className={"deleteLi"}>
 
-                <Checkbox color={"primary"}
+                <Checkbox color={entityStatus === "loading" ? "warning":"primary"}
                           onChange={changeTaskStatus}
+                          disabled={entityStatus === "loading"}
                           checked={task.status === TaskStatuses.Completed}
                           className={task.status === TaskStatuses.Completed ? "completedTask" : ""}/>
                 <EditableSpan title={task.title} setNewTitle={changeTaskTitle}/>
-                <IconButton onClick={removeTask}>
-                    <CloseIcon fontSize={"small"} color={"primary"}/>
-
+                <IconButton onClick={removeTask} disabled={entityStatus === "loading"}>
+                    <CloseIcon fontSize={"small"} color={entityStatus === "loading" ? "disabled":"primary"}/>
                 </IconButton>
             </div>
         </div>)

@@ -8,7 +8,9 @@ import {Task} from "./Task";
 import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
 import {createTask, getTasks} from "../../../state/task-reducer";
 import {useDispatch} from "react-redux";
-import DeleteIcon from '@mui/icons-material/Delete';
+import Stack from "@mui/material/Stack/Stack";
+import {RequestStatusType} from "../../../app/app-reducer";
+import {Delete} from "@mui/icons-material/";
 
 export type todoListPropsType = {
     title: string
@@ -18,6 +20,7 @@ export type todoListPropsType = {
     todoListID: string
     removeTodoLists: (todoListID: string) => void
     changeTodoListTitle: (title: string, todoListID: string) => void
+    entityStatus: RequestStatusType
 }
 
 
@@ -28,6 +31,7 @@ export const TodoList = React.memo(({
                                         changeTodoListTitle,
                                         tasks,
                                         filter,
+                                        entityStatus,
                                         title} :todoListPropsType) => {
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -58,7 +62,6 @@ export const TodoList = React.memo(({
         changeTodoListTitle(newValue, todoListID);
     },[todoListID, changeTodoListTitle]);
 
-
     let tasksForTodoLists = tasks;
 
     if (filter === "completed") {
@@ -74,6 +77,7 @@ export const TodoList = React.memo(({
         return <Task key={task.id}
                      taskID={task.id}
                      toDoListID={todoListID}
+                     entityStatus={entityStatus}
                     />
     })
     return (
@@ -85,26 +89,27 @@ export const TodoList = React.memo(({
                         <div className={"whatToLearn"}>
                             <EditableSpan title={title} setNewTitle={changeTodolistTitle}/>
                         </div>
-                        <IconButton onClick={deleteTodoList}>
-                            <DeleteIcon color={"primary"}/>
+
+                        <IconButton onClick={deleteTodoList} disabled={entityStatus === "loading"}>
+                            <Delete color={ entityStatus === "loading" ? "disabled": "primary"}/>
                         </IconButton>
                     </h3>
                 </div>
-                <AddItemForm addItem={addTask}/>
+                <AddItemForm addItem={addTask} disabled={entityStatus === "loading"}/>
                 {todolist}
-                <div className={"buttons"}>
-                    <Button size={"small"} variant={"contained"} className={"button"}
+                <Stack className={"buttons"} direction="row" spacing={2}>
+                    <Button  size={"small"} variant={"contained"} className={"button"}
                             color={filter === "all" ? "secondary" : "primary"} onClick={changeFilterAll}>All
                     </Button>
                     <Button size={"small"} variant={"contained"} className={"button"}
                             color={filter === "active" ? "secondary" : "primary"}
                             onClick={changeFilterActive}>Active
                     </Button>
-                    <Button size={"small"} variant={"contained"} className={"button"}
+                    <Button  size={"small"} variant={"contained"} className={"button"}
                             color={filter === "completed" ? "secondary" : "primary"}
                             onClick={changeFilterCompleted}>Completed
                     </Button>
-                </div>
+                </Stack>
             </div>
         </div>
     );

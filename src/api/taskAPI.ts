@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios'
 
 const settings = {
     withCredentials: true,
@@ -57,8 +57,8 @@ export type UpdateBodyType = {
     deadline: string
 }
 export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}> значение по умолчанию типа D = пустой объект
-    fieldsErrors: [""]
-    messages: [""]
+    fieldsErrors: Array<string>
+    messages: Array<string>
     resultCode: 0|1
     data: D
 }
@@ -66,7 +66,7 @@ export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}>
 //api
 export const taskAPI = {
     getTasks(todolistId: string) {
-        return instance.get<GetTaskResponseType>(`${todolistId}/tasks`)
+        return instance.get <GetTaskResponseType> (`${todolistId}/tasks`)
     },
     createTask(todolistID: string, title: string) {
         return instance.post<ResponseType<{item:TaskDataType}>>(`${todolistID}/tasks`, {title})

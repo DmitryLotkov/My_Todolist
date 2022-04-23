@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../app/App.css';
+import '../app/App.scss';
 import {v1} from "uuid";
 import {TodoList} from "../pages/TodoListList/Todolists/TodoList";
 import AppBar from '@mui/material/AppBar/AppBar';
@@ -16,6 +16,7 @@ import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 
 import {TaskDataType, TaskPriorities, TaskStatuses} from "../api/taskAPI";
 import IconButton from '@mui/material/IconButton/IconButton';
+import {TodoListDomainType} from "../state/todolistsReducer";
 
 
 export type FilterValueType = "all" | "active" | "completed"
@@ -37,9 +38,9 @@ function AppOld() {
     let todoListID1 = v1();
     let todoListID2 = v1();
 
-    let [todoLists, setTodoLists] = useState<Array<TodoListType>>([
-        {id: todoListID1, title: "What to learn", filter: "all"},
-        {id: todoListID2, title: "What to buy", filter: "all"},
+    let [todoLists, setTodoLists] = useState<Array<TodoListDomainType>>([
+        {id: todoListID1, title: "What to learn", filter: "all", entityStatus:"idle", order: 0, addedDate: ""},
+        {id: todoListID2, title: "What to buy", filter: "all", entityStatus:"idle", order: 0, addedDate: ""},
     ])
     let [tasks, setTasks] = useState<TasksStateType>({
         [todoListID1]: [
@@ -58,8 +59,8 @@ function AppOld() {
 
     const addTodolist = (title: string) => {
         const todoListID = v1();
-        let newTodoList: TodoListType =
-            {id: todoListID, title: title, filter: "all"};
+        let newTodoList: TodoListDomainType =
+            {id: todoListID, title: title, filter: "all", entityStatus:"idle", order: 0, addedDate: ""};
         setTodoLists([newTodoList, ...todoLists]);
         setTasks({...tasks, [todoListID]: []})
     }
@@ -112,6 +113,7 @@ function AppOld() {
                                 <Grid item key={t.id}>
                                     <Paper elevation={2} style={{padding: "1rem"}}>
                                         <TodoList
+                                            entityStatus={t.entityStatus}
                                             title={t.title}
                                             tasks={tasksForTodoLists}
                                             changeFilter={changeFilter}

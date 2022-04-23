@@ -2,15 +2,16 @@ import React, {ChangeEvent, useState} from "react";
 import IconButton from '@mui/material/IconButton';
 import TextField from "@mui/material/TextField/TextField";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import style from './AddItemForm.module.css';
+import style from './AddItemForm.module.scss';
 
 
 type AddItemFormType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
-export const AddItemForm = React.memo(({addItem}: AddItemFormType)=> {
-
+export const AddItemForm = React.memo(({addItem, disabled}: AddItemFormType)=> {
+    console.log("disabled", disabled)
     let [inputData, setInputData] = useState("");
     let [error, setError] = useState<string | null>(null);
 
@@ -52,8 +53,8 @@ export const AddItemForm = React.memo(({addItem}: AddItemFormType)=> {
             helperText={error && 'Title is required!'}
         />
             <div className={style.addItemButton}>
-                <IconButton onClick={addLetter}>
-                <AddCircleIcon color={"primary"}/>
+                <IconButton onClick={addLetter} disabled={disabled}>
+                <AddCircleIcon color={disabled ? "disabled": "primary"}/>
             </IconButton>
             </div>
         </div>
