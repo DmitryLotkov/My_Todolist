@@ -5,6 +5,7 @@ import {TodoListType} from "../api/taskAPI";
 import {RequestStatusType, SetAppErrorType, setAppStatusAC, SetAppStatusType} from "../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/Error-utils";
 import {ActionsTasksType} from "./task-reducer";
+import {AuthActionsType} from "../login/auth-reducer";
 
 
 export type ActionsTodoListsType =
@@ -67,7 +68,7 @@ export const todoListsReducer = (state: Array<TodoListDomainType> = initialState
 }
 
 //thunks
-export const getTodolists = () => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>) => {
+export const getTodolists = () => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>) => {
     dispatch(setAppStatusAC("loading"));
 
     todoListAPI.getTodoLists()
@@ -82,7 +83,7 @@ export const getTodolists = () => (dispatch: Dispatch<ActionsTasksType | Actions
 
 }
 
-export const deleteTodoList = (todoListID: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>) => {
+export const deleteTodoList = (todoListID: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>) => {
     dispatch(setAppStatusAC("loading"));
     dispatch(setTodoListEntityStatusAC(todoListID, "loading"));
     todoListAPI.deleteTodolist(todoListID)
@@ -101,7 +102,7 @@ export const deleteTodoList = (todoListID: string) => (dispatch: Dispatch<Action
         })
 }
 
-export const createTodolist = (todoListTitle: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>) => {
+export const createTodolist = (todoListTitle: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>) => {
     dispatch(setAppStatusAC("loading"));
 
     todoListAPI.createTodolist(todoListTitle)
@@ -120,7 +121,7 @@ export const createTodolist = (todoListTitle: string) => (dispatch: Dispatch<Act
 
 }
 
-export const changeTodoListTitleTC = (todoListTitle: string, todoListID: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>) => {
+export const changeTodoListTitleTC = (todoListTitle: string, todoListID: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>) => {
     dispatch(setAppStatusAC("loading"));
 
     todoListAPI.updateTodolist(todoListID, todoListTitle)

@@ -3,7 +3,8 @@ import {ActionsTodoListsType, setTodoListEntityStatusAC} from "../state/todolist
 import {Dispatch} from "redux";
 import {ActionsTasksType} from "../state/task-reducer";
 import {ResponseType} from '../api/taskAPI'
-export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>, todoListID?:string) =>{
+import {AuthActionsType} from "../login/auth-reducer";
+export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>, todoListID?:string) =>{
     if (data.messages.length) {
         dispatch(setAppErrorAC(data.messages[0]));
     } else {
@@ -14,7 +15,8 @@ export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatc
 }
 export const handleServerNetworkError = (error:Error, dispatch:Dispatch<ActionsTasksType>, todoListID?:string) =>{
     dispatch(setAppErrorAC(error.message));
+    dispatch(setAppStatusAC("failed"));
     if(todoListID)
     dispatch(setTodoListEntityStatusAC(todoListID, "failed"));
-    dispatch(setAppStatusAC("failed"));
+
 }

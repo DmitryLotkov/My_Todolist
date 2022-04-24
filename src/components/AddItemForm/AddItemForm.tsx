@@ -11,7 +11,7 @@ type AddItemFormType = {
 }
 
 export const AddItemForm = React.memo(({addItem, disabled}: AddItemFormType)=> {
-    console.log("disabled", disabled)
+
     let [inputData, setInputData] = useState("");
     let [error, setError] = useState<string | null>(null);
 

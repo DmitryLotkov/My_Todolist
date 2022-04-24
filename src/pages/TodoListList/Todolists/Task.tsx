@@ -34,7 +34,7 @@ export const Task = React.memo(({toDoListID, taskID, entityStatus}: TaskPropsTyp
     const removeTask = useCallback(() => {
         dispatch(deleteTask(toDoListID, taskID));
     }, [taskID, toDoListID, dispatch]);
-    console.log("entityStatus in tasks", entityStatus)
+
     return (
 
         <div className={"todolist"}>

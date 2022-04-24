@@ -9,6 +9,7 @@ import {Dispatch} from "redux";
 import {AppRootStateType} from "./state";
 import {SetAppErrorType, setAppStatusAC, SetAppStatusType} from "../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/Error-utils";
+import {AuthActionsType} from "../login/auth-reducer";
 
 
 export type TasksStateType = {
@@ -26,6 +27,7 @@ export type ActionsTasksType =
     | SetAppStatusType
     | SetAppErrorType
     | SetTodoListEntityStatusActionType
+
 
 export type UpdateDomainTaskModelType = Partial<UpdateBodyType> //Это утилити тип, создает новый тип, где все параметры необязательные
 
@@ -85,7 +87,6 @@ export const taskReducer = (state: TasksStateType = initialState, action: Action
 //thunks
 export const getTasks = (todoListID: string) => {
     return (dispatch: Dispatch<ActionsTasksType>) => {
-        debugger
         dispatch(setAppStatusAC("loading"));
         dispatch(setTodoListEntityStatusAC(todoListID, "loading"));
         taskAPI.getTasks(todoListID)
@@ -101,7 +102,7 @@ export const getTasks = (todoListID: string) => {
     };
 }
 
-export const createTask = (todoListID: string, inputData: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>) => {
+export const createTask = (todoListID: string, inputData: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>) => {
     dispatch(setAppStatusAC("loading"));
     dispatch(setTodoListEntityStatusAC(todoListID, "loading"));
     taskAPI.createTask(todoListID, inputData)
@@ -120,7 +121,7 @@ export const createTask = (todoListID: string, inputData: string) => (dispatch: 
         })
 }
 
-export const deleteTask = (todoListID: string, taskID: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>) => {
+export const deleteTask = (todoListID: string, taskID: string) => (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>) => {
     dispatch(setAppStatusAC("loading"));
     dispatch(setTodoListEntityStatusAC(todoListID, "loading"));
     taskAPI.deleteTask(todoListID, taskID)
@@ -139,7 +140,7 @@ export const deleteTask = (todoListID: string, taskID: string) => (dispatch: Dis
         })
 }
 export const updateTaskTC = (todoListID: string, taskID: string, domainModel: UpdateDomainTaskModelType) => {
-    return (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType>, getState: () => AppRootStateType) => {
+    return (dispatch: Dispatch<ActionsTasksType | ActionsTodoListsType | AuthActionsType>, getState: () => AppRootStateType) => {
         const state = getState();
         let task = state.tasks[todoListID].find(task => task.id === taskID);
         dispatch(setTodoListEntityStatusAC(todoListID, "loading"));
