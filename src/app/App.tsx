@@ -25,8 +25,8 @@ export const App = () => {
     const isInitialized = useAppSelector<boolean>(state => state.auth.isInitialized);
     console.log()
     useEffect(() => {
-        {dispatch(initializeAppTC())}
-    },[]);
+        dispatch(initializeAppTC())
+    },[dispatch]);
 
      if (!isInitialized) {
         return <div
@@ -61,6 +61,7 @@ export const App = () => {
                 <Routes>
                     <Route path={"/"} element={<TodoListList/>}/>
                     <Route path={"login"} element={<Login/>}/>
+                    <Route path={"/My_Todolist"} element={<TodoListList/>}/>
                     <Route path={"/404"} element={<h1>404: PAGE NOT FOUND</h1>}/>
                     <Route path={"*"} element={<Navigate to={"/404"}/>}/>
                 </Routes>
