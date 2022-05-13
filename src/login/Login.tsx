@@ -30,7 +30,7 @@ export const Login = () => {
             rememberMe: true
         },
         validate: (values) => {
-            const errors: Partial<Omit<FormikErrorType, "captcha">> = {}; //Partial type создает тии из родительсткого с необязательными параметрами
+            const errors: Partial<Omit<FormikErrorType, "captcha">> = {}; //Partial type создает тип из родительсткого с необязательными параметрами
             if (!values.email) { // Omit type создает тип с выбраным отсутствующим свойством в примере "captcha"
                 errors.email = 'Required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -84,7 +84,7 @@ export const Login = () => {
                         <div style={{color: "red"}}>{formik.errors.password}</div>}
                         <FormControlLabel label={'Remember me'}
                                           control={<Checkbox/>}
-                                          checked={formik.values.rememberMe}
+                                          checked={formik.getFieldProps("rememberMe").value}
                                           {...formik.getFieldProps("rememberMe")}/>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Login

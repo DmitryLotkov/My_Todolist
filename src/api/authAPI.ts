@@ -4,7 +4,7 @@ import {LoginParamsType} from "../login/auth-reducer";
 const settings = {
     withCredentials: true,
     headers: {
-        "API-KEY": "3ca3376c-f1c7-42b6-b439-a7f59c674e78",
+        "API-KEY": "75cc682e-08cd-4c4d-a4d5-b1326df235de",
     },
 }
 export const instance = axios.create({
@@ -17,9 +17,7 @@ type AuthDataType = {
     email: string
     login:string
 }
-type AuthType = {
-    data: AuthDataType
-}
+
 
 export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}> значение по умолчанию типа D = пустой объект
     fieldsErrors: Array<string>
@@ -31,10 +29,10 @@ export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}>
 //api
 export const authAPI = {
     me(){
-        return instance.get<ResponseType<AuthType>>(`/auth/me`);
+        return instance.get<ResponseType<AuthDataType>>(`/auth/me`);
     },
     login(data: LoginParamsType){
-        return instance.post<ResponseType<{userId: string}>>(`/auth/login`, data);
+        return instance.post<ResponseType<AuthDataType>>(`/auth/login`, data);
     },
     logOut(){
         return instance.delete<ResponseType>(`/auth/login`);
