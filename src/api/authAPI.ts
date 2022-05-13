@@ -4,7 +4,7 @@ import {LoginParamsType} from "../login/auth-reducer";
 const settings = {
     withCredentials: true,
     headers: {
-        "API-KEY": "75cc682e-08cd-4c4d-a4d5-b1326df235de",
+        "API-KEY": "c3728aab-6f62-411f-9e90-c03d8ff7b899",
     },
 }
 export const instance = axios.create({
