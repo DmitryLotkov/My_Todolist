@@ -53,26 +53,26 @@ export function AppWithReducer() {
     });
 
     const addTodolist = (title: string) => {
-        let action = createTodoListAC({
-            title:title,
-            addedDate:"",
-            order:0,
-            id:v1()});
+        let action = createTodoListAC({todoList:{
+                title,
+                addedDate:"",
+                order:0,
+                id:v1()}});
         dispatchToDoList(action);
         dispatchTasks(action);
     }
     const changeFilter = (filter: FilterValueType,todoListID: string ) => {
 
-        let action = changeTodoListFilterAC(todoListID, filter);
+        let action = changeTodoListFilterAC({todoListID, filter});
         dispatchToDoList(action);
     }
     const removeTodoLists = (todoListID: string) => {
-        let action = removeTodoListAC(todoListID);
+        let action = removeTodoListAC({todoListID});
         dispatchToDoList(action);
         dispatchTasks(action);
     }
     const changeTodoListTitle = useCallback((title: string, todoListID: string) => {
-        changeTodoListTitleAC(title, todoListID);
+        changeTodoListTitleAC({todoListID, title});
     },[]);
 
     return (

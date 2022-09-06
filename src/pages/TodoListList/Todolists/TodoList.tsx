@@ -9,7 +9,7 @@ import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
 import {createTask, getTasks} from "../../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import Stack from "@mui/material/Stack/Stack";
-import {RequestStatusType} from "../../../app/app-reducer";
+import {RequestStatusType} from "../../../state/app-reducer";
 import {Delete} from "@mui/icons-material/";
 
 export type todoListPropsType = {
@@ -72,7 +72,6 @@ export const TodoList = React.memo(({
     }
 
     const todolist = tasksForTodoLists.map(task => {
-
 
         return <Task key={task.id}
                      taskID={task.id}

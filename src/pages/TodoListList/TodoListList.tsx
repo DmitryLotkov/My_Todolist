@@ -31,7 +31,6 @@ export const TodoListList:React.FC = () =>{
     const todoLists = useAppSelector<Array<TodoListDomainType>>(state => state.toDoLists);
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
 
-
     useEffect(()=>{
         dispatch(getTodolists())
     },[dispatch]);
@@ -41,7 +40,7 @@ export const TodoListList:React.FC = () =>{
     },[dispatch]);
 
     const changeFilter = useCallback((filter: FilterValueType,todoListID: string ) => {
-        dispatch(changeTodoListFilterAC(todoListID, filter));
+        dispatch(changeTodoListFilterAC({todoListID, filter}));
     },[dispatch]);
 
     const removeTodoLists = useCallback((todoListID: string) => {

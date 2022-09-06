@@ -54,8 +54,8 @@ export const AddItemForm = React.memo(({addItem, disabled}: AddItemFormType)=> {
         />
             <div className={style.addItemButton}>
                 <IconButton onClick={addLetter} disabled={disabled}>
-                <AddCircleIcon color={disabled ? "disabled": "primary"}/>
-            </IconButton>
+                    <AddCircleIcon color={disabled ? "disabled": "primary"}/>
+                </IconButton>
             </div>
         </div>
 

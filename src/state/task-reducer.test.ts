@@ -99,7 +99,7 @@ beforeEach(() => {
 test('correct task should be deleted from correct array', () => {
 
 
-    const action = removeTaskAC("2", "todolistId2");
+    const action = removeTaskAC({todolistID: "todolistId2", taskID: "2"});
 
     const endState = taskReducer(startState, action)
 
@@ -174,16 +174,20 @@ test('correct task should be deleted from correct array', () => {
 test('correct task should be added to correct array', () => {
 
     const action = createTaskAC({
-        id: "3",
-        title: "tea",
-        status: TaskStatuses.New,
-        todoListId: "todolistId2",
-        startDate: "",
-        priority: TaskPriorities.Low,
-        order: 0,
-        description: "",
-        deadline: "",
-        addedDate: ""});
+        task:
+            {
+                id: "3",
+                title: "tea",
+                status: TaskStatuses.New,
+                todoListId: "todolistId2",
+                startDate: "",
+                priority: TaskPriorities.Low,
+                order: 0,
+                description: "",
+                deadline: "",
+                addedDate: ""
+            }
+    });
 
     const endState = taskReducer(startState, action)
 
@@ -195,7 +199,7 @@ test('correct task should be added to correct array', () => {
 });
 test('status of specified task should be changed', () => {
 
-    const action = updateTaskAC("2", "todolistId2", {status: TaskStatuses.InProgress});
+    const action = updateTaskAC({taskID: "2", todoListID: "todolistId2", model: {status: TaskStatuses.InProgress}});
 
     const endState = taskReducer(startState, action)
 
@@ -205,8 +209,10 @@ test('status of specified task should be changed', () => {
 });
 test('title of specified task should be changed', () => {
 
-    const action = updateTaskAC("1","todolistId2" , {
-        title:"butter",
+    const action = updateTaskAC({
+        taskID: "1", todoListID: "todolistId2", model: {
+            title: "butter",
+        }
     });
 
     const endState = taskReducer(startState, action)
@@ -217,7 +223,7 @@ test('title of specified task should be changed', () => {
 });
 test('new array should be added when new todolist is added', () => {
 
-    const action = createTodoListAC({id:"1",order:0,addedDate:"",title:"New TD Title"});
+    const action = createTodoListAC({todoList: {id: "1", order: 0, addedDate: "", title: "New TD Title"}});
 
     const endState = taskReducer(startState, action)
 
@@ -235,7 +241,7 @@ test('ids should be equals', () => {
     const startTasksState: TasksStateType = {};
     const startTodoListsState: Array<TodoListDomainType> = [];
 
-    const action = createTodoListAC({id:"1",order:0,addedDate:"",title:"New TD Title"});
+    const action = createTodoListAC({todoList: {id: "1", order: 0, addedDate: "", title: "New TD Title"}});
 
     const endTasksState = taskReducer(startTasksState, action)
     const endTodoListsState = todoListsReducer(startTodoListsState, action)
@@ -245,27 +251,26 @@ test('ids should be equals', () => {
     const idFromTodoLists = endTodoListsState[0].id;
 
 
-    expect(idFromTasks).toBe(action.todolist.id);
-    expect(idFromTodoLists).toBe(action.todolist.id);
+    expect(idFromTasks).toBe(action.payload.todoList.id);
+    expect(idFromTodoLists).toBe(action.payload.todoList.id);
     expect(idFromTodoLists).toBe(idFromTasks);
 });
 
 test('property with todolistId should be deleted', () => {
 
-    const action = removeTodoListAC("todolistId2");
-
+    const action = removeTodoListAC({todoListID: "todolistId2"});
     const endState = taskReducer(startState, action)
-
 
     const keys = Object.keys(endState);
 
     expect(keys.length).toBe(1);
-    expect(endState["todolistId2"]).not.toBeDefined();
+    expect(endState["todolistId2"]).toBeUndefined();
 });
 
 test('tasks should be added for todolist', () => {
 
-    const action = setTasksAC(startState["todolistId2"], "todolistId2");
+    const action = setTasksAC({todoListID: "todolistId2",
+        tasks: startState["todolistId2"]});
 
     const endState = taskReducer({
         "todolistId2": [],

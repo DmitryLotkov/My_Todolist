@@ -2,10 +2,11 @@ import React from 'react';
 import {Provider} from "react-redux";
 import {AppRootStateType} from "./state/state";
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {taskReducer} from "./state/task-reducer";
+
 import {todoListsReducer} from "./state/todolistsReducer";
 import {TaskStatuses} from "./api/taskAPI";
 import thunkMiddleware from "redux-thunk";
+import {taskReducer} from "./state/task-reducer";
 
 
 
@@ -13,8 +14,6 @@ const rootReducer = combineReducers({
     tasks: taskReducer,
     toDoLists: todoListsReducer
 })
-/*export const taskID1 = v1();
-export const taskID2 = v1();*/
 
 const initialGlobalState = {
     toDoLists: [

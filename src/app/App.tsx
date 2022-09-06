@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import LinearProgress from '@mui/material/LinearProgress';
 import {useAppSelector} from "../state/state";
-import {RequestStatusType} from "./app-reducer";
+import {RequestStatusType} from "../state/app-reducer";
 import {ErrorSnackBar} from "../components/ErrorSnackBar/ErrorSnackBar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../login/Login";
@@ -23,7 +23,7 @@ export const App = () => {
     const status = useAppSelector<RequestStatusType>(state => state.app.status);
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
     const isInitialized = useAppSelector<boolean>(state => state.auth.isInitialized);
-    console.log()
+
     useEffect(() => {
         dispatch(initializeAppTC())
     },[dispatch]);

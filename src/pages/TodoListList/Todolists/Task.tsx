@@ -7,7 +7,7 @@ import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Checkbox from "@mui/material/Checkbox";
-import {RequestStatusType} from "../../../app/app-reducer";
+import {RequestStatusType} from "../../../state/app-reducer";
 
 export type TaskPropsType = {
     toDoListID: string
