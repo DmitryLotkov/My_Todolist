@@ -1,5 +1,5 @@
 import {setAppErrorAC, setAppStatusAC} from "../state/app-reducer";
-import { setTodoListEntityStatusAC} from "../state/todolistsReducer";
+import { setTodoListEntityStatusAC} from "../pages/TodoListList/Todolists/todolistsReducer";
 import {Dispatch} from "redux";
 
 import {ResponseType} from '../api/taskAPI'

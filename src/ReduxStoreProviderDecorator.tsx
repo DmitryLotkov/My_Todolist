@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import {AppRootStateType} from "./state/state";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 
-import {todoListsReducer} from "./state/todolistsReducer";
+import {todoListsReducer} from "./pages/TodoListList/Todolists/todolistsReducer";
 import {TaskStatuses} from "./api/taskAPI";
 import thunkMiddleware from "redux-thunk";
 import {taskReducer} from "./state/task-reducer";

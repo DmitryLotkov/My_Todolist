@@ -5,6 +5,7 @@ import MuiAlert, {AlertProps} from '@mui/material/Alert';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/state";
 import {NullableType, setAppErrorAC} from "../../state/app-reducer";
+import {errorSelector} from "../../app/selectors";
 
 
 export const ErrorSnackBar = () => {
@@ -16,7 +17,7 @@ export const ErrorSnackBar = () => {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
     });
 
-   const error = useSelector<AppRootStateType, NullableType<string>>(state => state.app.error)
+   const error = useSelector<AppRootStateType, NullableType<string>>(errorSelector)
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;

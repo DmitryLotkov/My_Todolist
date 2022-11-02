@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.scss';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
-import {TodoListList} from "../pages/TodoListList/TodoListList";
+import {TodoListList} from "../pages/TodoListList/Todolists/TodoListList";
 import AppBar from '@mui/material/AppBar/AppBar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -12,17 +12,21 @@ import {useAppSelector} from "../state/state";
 import {RequestStatusType} from "../state/app-reducer";
 import {ErrorSnackBar} from "../components/ErrorSnackBar/ErrorSnackBar";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Login} from "../login/Login";
+import {Login} from "../auth/Login";
 import {CircularProgress, Container} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {initializeAppTC, logOutTC} from "../login/auth-reducer";
+import {initializeAppTC, logOutTC} from "../auth/login-reducer";
+import {statusSelector} from "./selectors";
+import {authSelectors} from "../auth";
+
+
 
 
 export const App = () => {
     const dispatch = useDispatch();
-    const status = useAppSelector<RequestStatusType>(state => state.app.status);
-    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
-    const isInitialized = useAppSelector<boolean>(state => state.auth.isInitialized);
+    const status = useAppSelector<RequestStatusType>(statusSelector);
+    const isLoggedIn = useAppSelector<boolean>(authSelectors.isLoggedInSelector);
+    const isInitialized = useAppSelector<boolean>(authSelectors.isInitializedSelector);
 
     useEffect(() => {
         dispatch(initializeAppTC())

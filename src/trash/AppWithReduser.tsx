@@ -20,7 +20,7 @@ import {
     changeTodoListTitleAC,
     removeTodoListAC,
     todoListsReducer,
-} from "../state/todolistsReducer";
+} from "../pages/TodoListList/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/taskAPI";
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 

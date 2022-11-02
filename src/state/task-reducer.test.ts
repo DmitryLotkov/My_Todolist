@@ -11,7 +11,7 @@ import {
     removeTodoListAC,
     TodoListDomainType,
     todoListsReducer
-} from "./todolistsReducer";
+} from "../pages/TodoListList/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/taskAPI";
 
 

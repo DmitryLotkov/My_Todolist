@@ -16,7 +16,7 @@ import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 
 import {TaskDataType, TaskPriorities, TaskStatuses} from "../api/taskAPI";
 import IconButton from '@mui/material/IconButton/IconButton';
-import {TodoListDomainType} from "../state/todolistsReducer";
+import {TodoListDomainType} from "../pages/TodoListList/Todolists/todolistsReducer";
 
 
 export type FilterValueType = "all" | "active" | "completed"

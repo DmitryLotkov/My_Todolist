@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {FilterValueType} from "../trash/AppOld";
+import {FilterValueType} from "../../../trash/AppOld";
 import {
     createTodoListAC,
     changeTodoListFilterAC,
@@ -7,7 +7,7 @@ import {
     removeTodoListAC, setTodoListsAC, TodoListDomainType,
     todoListsReducer
 } from "./todolistsReducer";
-import {taskReducer} from "./task-reducer";
+import {taskReducer} from "../../../state/task-reducer";
 
 let startState: Array<TodoListDomainType>
 let todolistId1 = v1();

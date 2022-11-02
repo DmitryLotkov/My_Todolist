@@ -3,7 +3,7 @@ import {
     CreateToDoListReducerActionType, removeTodoListAC, RemoveToDoListActionType, SetTodoListActionType,
     setTodoListEntityStatusAC,
     setTodoListsAC
-} from "./todolistsReducer";
+} from "../pages/TodoListList/Todolists/todolistsReducer";
 import {taskAPI, TaskDataType, UpdateBodyType} from "../api/taskAPI";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "./state";

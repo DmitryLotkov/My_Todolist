@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {LoginParamsType} from "../login/auth-reducer";
+import {LoginParamsType} from "../auth/login-reducer";
 
 const settings = {
     withCredentials: true,
