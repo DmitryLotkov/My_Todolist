@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Task} from "./Task";
 import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
-import {createTask, getTasks} from "../../../state/task-reducer";
+import {createTaskTC, fetchTasksTC} from "../../../state/task-reducer";
 import {useDispatch} from "react-redux";
 import Stack from "@mui/material/Stack/Stack";
 import {RequestStatusType} from "../../../state/app-reducer";
@@ -34,13 +34,14 @@ export const TodoList = React.memo(({
                                         entityStatus,
                                         title} :todoListPropsType) => {
     const dispatch = useDispatch();
+
     useEffect(()=>{
-        dispatch(getTasks(todoListID))
+        dispatch(fetchTasksTC(todoListID))
 
     }, [dispatch, todoListID]);
 
     const addTask = useCallback((inputData: string) => {
-        dispatch(createTask(todoListID, inputData ))
+        dispatch(createTaskTC(todoListID, inputData ))
     },[dispatch, todoListID]);
 
     const changeFilterAll = useCallback(() => {
@@ -79,6 +80,7 @@ export const TodoList = React.memo(({
                      entityStatus={entityStatus}
                     />
     })
+
     return (
         <div>
             <div>

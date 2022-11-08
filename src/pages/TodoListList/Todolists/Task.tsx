@@ -2,7 +2,7 @@ import React, {ChangeEvent, useCallback} from "react";
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../state/state";
-import {updateTaskTC, deleteTask} from "../../../state/task-reducer";
+import {updateTaskTC, deleteTaskTC} from "../../../state/task-reducer";
 import {TaskDataType, TaskStatuses} from "../../../api/taskAPI";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -32,7 +32,7 @@ export const Task = React.memo(({toDoListID, taskID, entityStatus}: TaskPropsTyp
     }, [dispatch, taskID, toDoListID]);
 
     const removeTask = useCallback(() => {
-        dispatch(deleteTask(toDoListID, taskID));
+        dispatch(deleteTaskTC(toDoListID, taskID));
     }, [taskID, toDoListID, dispatch]);
 
     return (

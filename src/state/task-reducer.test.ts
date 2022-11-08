@@ -1,10 +1,4 @@
-import {
-    createTaskAC,
-    updateTaskAC,
-    removeTaskAC,
-    taskReducer,
-    setTasksAC
-} from "./task-reducer";
+import {createTaskAC, fetchTasksTC, removeTaskAC, taskReducer, updateTaskAC} from "./task-reducer";
 import {TasksStateType} from "../trash/AppOld";
 import {
     createTodoListAC,
@@ -269,8 +263,8 @@ test('property with todolistId should be deleted', () => {
 
 test('tasks should be added for todolist', () => {
 
-    const action = setTasksAC({todoListID: "todolistId2",
-        tasks: startState["todolistId2"]});
+    const action = fetchTasksTC.fulfilled({todoListID: "todolistId2",
+        tasks: startState["todolistId2"]}, "requestID", "todolistId1");
 
     const endState = taskReducer({
         "todolistId2": [],
