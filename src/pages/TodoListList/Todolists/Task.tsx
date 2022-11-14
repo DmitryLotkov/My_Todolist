@@ -10,30 +10,30 @@ import Checkbox from "@mui/material/Checkbox";
 import {RequestStatusType} from "../../../state/app-reducer";
 
 export type TaskPropsType = {
-    toDoListID: string
+    todoListID: string
     taskID: string
     entityStatus: RequestStatusType
 }
 
-export const Task = React.memo(({toDoListID, taskID, entityStatus}: TaskPropsType) => {
+export const Task = React.memo(({todoListID, taskID, entityStatus}: TaskPropsType) => {
 
     const dispatch = useDispatch();
-    const task = useSelector<AppRootStateType, TaskDataType>(state => state.tasks[toDoListID]
+    const task = useSelector<AppRootStateType, TaskDataType>(state => state.tasks[todoListID]
         .filter(task => task.id === taskID)[0]);
 
     const changeTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const newTaskStatus = e.currentTarget.checked;
         const status: number = newTaskStatus ? TaskStatuses.Completed : TaskStatuses.New;
-        dispatch(updateTaskTC(toDoListID, taskID, {status}))
-    }, [dispatch, taskID, toDoListID]);
+        dispatch(updateTaskTC(todoListID, taskID, {status}))
+    }, [dispatch, taskID, todoListID]);
 
     const changeTaskTitle = useCallback((newValue: string) => {
-        dispatch(updateTaskTC(toDoListID, taskID, {title: newValue}));
-    }, [dispatch, taskID, toDoListID]);
+        dispatch(updateTaskTC(todoListID, taskID, {title: newValue}));
+    }, [dispatch, taskID, todoListID]);
 
     const removeTask = useCallback(() => {
-        dispatch(deleteTaskTC(toDoListID, taskID));
-    }, [taskID, toDoListID, dispatch]);
+        dispatch(deleteTaskTC({todoListID, taskID}));
+    }, [taskID, todoListID, dispatch]);
 
     return (
 

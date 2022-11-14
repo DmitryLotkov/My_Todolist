@@ -18,9 +18,9 @@ type AuthDataType = {
     login:string
 }
 
-
+export type FiledErrorType = {field:string, error:string}
 export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}> значение по умолчанию типа D = пустой объект
-    fieldsErrors: Array<string>
+    fieldErrors:Array<FiledErrorType>
     messages: Array<string>
     resultCode: 0|1
     data: D

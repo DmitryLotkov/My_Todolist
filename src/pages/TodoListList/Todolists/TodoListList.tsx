@@ -59,7 +59,7 @@ export const TodoListList:React.FC = () =>{
         dispatch(changeTodoListTitleTC(title, todoListID));
     },[dispatch]);
     if (!isLoggedIn) {
-        return <Navigate to={"/auth"}/>
+        return <Navigate to={"/login"}/>
     }
 
     const TodoListJSX = todoLists.map(t => {

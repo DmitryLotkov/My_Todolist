@@ -57,7 +57,7 @@ export type UpdateBodyType = {
     deadline: string
 }
 export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}> значение по умолчанию типа D = пустой объект
-    fieldsErrors: Array<string>
+    fieldErrors: Array<{field:string, error:string}>
     messages: Array<string>
     resultCode: 0|1
     data: D

@@ -5,9 +5,9 @@ import {Dispatch} from "redux";
 import {ResponseType} from '../api/taskAPI'
 
 
-export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch/*<ActionsTasksType |
-    ActionsTodoListsType | AppActionsType> | AppActionsType*/, todoListID?: string) => {
+export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch, todoListID?: string) => {
     if (data.messages.length) {
+
         dispatch(setAppErrorAC({error: data.messages[0]}));
     } else {
         dispatch(setAppErrorAC({error: "Some error occupied"}));
@@ -16,7 +16,7 @@ export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatc
     todoListID && dispatch(setTodoListEntityStatusAC({todoListID:todoListID,
         entityStatus: "failed"}));
 }
-export const handleServerNetworkError = (error: Error, dispatch: Dispatch/*<ActionsTasksType>*/, todoListID?: string) => {
+export const handleServerNetworkError = (error: any, dispatch: Dispatch, todoListID?: string) => {
     dispatch(setAppErrorAC({error: error.message ? error.message : "Some error occupied"}));
     dispatch(setAppStatusAC({status: "failed"}));
     if (todoListID)

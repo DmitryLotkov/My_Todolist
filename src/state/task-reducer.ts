@@ -20,13 +20,13 @@ export type TasksStateType = {
 }
 //types
 export type ActionsTasksType =
-    ReturnType<typeof removeTaskAC>
+/* ReturnType<typeof removeTaskAC>*/
     | ReturnType<typeof createTaskAC>
     | ReturnType<typeof updateTaskAC>
     | CreateToDoListReducerActionType
     | RemoveToDoListActionType
     | SetTodoListActionType
-    /*| ReturnType<typeof fetchTasksSuccess>*/
+/*| ReturnType<typeof fetchTasksSuccess>*/
 
 export type UpdateDomainTaskModelType = Partial<UpdateBodyType> //Это утилити тип, создает новый тип, где все параметры необязательные
 
@@ -58,40 +58,31 @@ export const fetchTasksTC = createAsyncThunk("tasks/fetchTasks", (todoListID: st
     })*/
 
 
- })
-/*export const createTaskTC = createAsyncThunk("tasks/createTask", (todoListID: string, inputData: string, thunkAPI) => {
-    thunkAPI.dispatch(setAppStatusAC({status: "loading"}));
-    thunkAPI.dispatch(setTodoListEntityStatusAC({todoListID, entityStatus: "loading"}));
-    taskAPI.createTask(todoListID, inputData)
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                thunkAPI.dispatch(createTaskAC({task: res.data.data.item}));
-                thunkAPI.dispatch(setAppStatusAC({status: "succeeded"}));
-                thunkAPI.dispatch(setTodoListEntityStatusAC({todoListID, entityStatus: "succeeded"}));
-            } else {
-                handleServerAppError(res.data, thunkAPI.dispatch, todoListID);
-            }
-        })
-        .catch((error: Error) => {
-            console.log("error when you try to create task", error);
-            handleServerNetworkError(error, thunkAPI.dispatch, todoListID)
-        })
-}*/
+})
 
+export const deleteTaskTC = createAsyncThunk("tasks/deleteTask", async (param: { todoListID: string, taskID: string }, thunkAPI) => {
+    thunkAPI.dispatch(setAppStatusAC({status: "loading"}));
+    thunkAPI.dispatch(setTodoListEntityStatusAC({todoListID: param.todoListID, entityStatus: "loading"}));
+    const res = await taskAPI.deleteTask(param.todoListID, param.taskID)
+    if (res.data.resultCode === 0) {
+        thunkAPI.dispatch(setAppStatusAC({status: "succeeded"}));
+        thunkAPI.dispatch(setTodoListEntityStatusAC({todoListID: param.todoListID, entityStatus: "succeeded"}));
+        return {taskID: param.taskID, todoListID: param.todoListID}
+    } else {
+        handleServerAppError(res.data, thunkAPI.dispatch, param.todoListID)
+    }
+
+    /*.catch((error: Error) => {
+        console.log("error when you try to do delete task", error)
+        handleServerNetworkError(error, thunkAPI.dispatch, param.todoListID)
+    })*/
+})
 
 
 const slice = createSlice({
     name: "tasks",
     initialState,
     reducers: {
-        removeTaskAC(state, action: PayloadAction<{ taskID: string, todolistID: string }>) {
-            const tasks = state[action.payload.todolistID]
-            const index = tasks.findIndex(task =>
-                task.id === action.payload.taskID)
-            if (index > -1) {
-                tasks.splice(index, 1);
-            }
-        },
         createTaskAC(state, action: PayloadAction<{ task: TaskDataType }>) {
             state[action.payload.task.todoListId].unshift(action.payload.task);
         },
@@ -101,8 +92,7 @@ const slice = createSlice({
             model: UpdateDomainTaskModelType
         }>) {
             const tasks = state[action.payload.todoListID];
-            const index = tasks.findIndex(task =>
-                task.id === action.payload.taskID)
+            const index = tasks.findIndex(task => task.id === action.payload.taskID)
             if (index > -1) {
                 tasks[index] = {...tasks[index], ...action.payload.model}
             }
@@ -115,23 +105,30 @@ const slice = createSlice({
         builder.addCase(removeTodoListAC, (state, action) => {
             delete state[action.payload.todoListID]
         });
-
         builder.addCase(setTodoListsAC, (state, action) => {
-                action.payload.todolists.forEach((td: any) => {
-                    state[td.id] = []
-                })
-            }
-        )
+            action.payload.todolists.forEach((td: any) => {
+                state[td.id] = []
+            })
+        })
         builder.addCase(fetchTasksTC.fulfilled, (state, action) => {
             state[action.payload.todoListID] = action.payload.tasks
+        })
+        builder.addCase(deleteTaskTC.fulfilled, (state, action) => {
+            if (action.payload) {
+                const tasks = state[action.payload.todoListID]
+                const index = tasks.findIndex(task => {
+                    if (action.payload) return task.id === action.payload.taskID
+                })
+                if (index > -1) {
+                    tasks.splice(index, 1);
+                }
             }
-        )
+        })
     }
-
 })
 
 
-export const {removeTaskAC, createTaskAC, updateTaskAC} = slice.actions;
+export const {createTaskAC, updateTaskAC} = slice.actions;
 export const taskReducer = slice.reducer;
 
 //thunks
@@ -155,7 +152,7 @@ export const createTaskTC = (todoListID: string, inputData: string) => (dispatch
         })
 }
 
-export const deleteTaskTC = (todoListID: string, taskID: string) => (dispatch: Dispatch/*<ActionsTasksType | ActionsTodoListsType | AuthActionsType>*/) => {
+/*export const deleteTaskTC = (todoListID: string, taskID: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     dispatch(setTodoListEntityStatusAC({todoListID, entityStatus: "loading"}));
     taskAPI.deleteTask(todoListID, taskID)
@@ -172,7 +169,7 @@ export const deleteTaskTC = (todoListID: string, taskID: string) => (dispatch: D
             console.log("error when you try do delete task", error)
             handleServerNetworkError(error, dispatch, todoListID)
         })
-}
+}*/
 export const updateTaskTC = (todoListID: string, taskID: string, domainModel: UpdateDomainTaskModelType) => {
     return (dispatch: Dispatch/*<ActionsTasksType | ActionsTodoListsType | AuthActionsType>*/, getState: () => AppRootStateType) => {
         const state = getState();

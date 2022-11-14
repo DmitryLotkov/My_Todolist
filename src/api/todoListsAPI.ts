@@ -2,7 +2,7 @@ import {instance, TodoListType} from "./taskAPI";
 
 
 export type ResponseType<D = {}> = {  //это дженерик тип. <D = {}> значение по умолчанию типа D = пустой объект
-    fieldsErrors: [""]
+    fieldErrors: Array<{field:string, error:string}>
     messages: [""]
     resultCode: 0|1
     data: D

@@ -17,7 +17,7 @@ export const TaskStory = Template.bind({});
 
 
 TaskStory.args = {
-    toDoListID: "todolistId2",
+    todoListID: "todolistId2",
     taskID: "1",
 }
 

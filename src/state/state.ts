@@ -23,7 +23,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
 export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 
 export function useActions<T extends ActionCreatorsMapObject>(actions:T) {
