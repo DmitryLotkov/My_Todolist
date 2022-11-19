@@ -1,4 +1,4 @@
-import {createTaskAC, deleteTaskTC, fetchTasksTC, taskReducer, updateTaskAC} from "./task-reducer";
+import {createTaskTC, deleteTaskTC, fetchTasksTC, taskReducer, updateTaskTC} from "./task-reducer";
 import {TasksStateType} from "../trash/AppOld";
 import {
     createTodoListAC,
@@ -167,9 +167,9 @@ test('correct task should be deleted from correct array', () => {
 });
 test('correct task should be added to correct array', () => {
 
-    const action = createTaskAC({
-        task:
-            {
+    const action = createTaskTC.fulfilled(
+
+        {
                 id: "3",
                 title: "tea",
                 status: TaskStatuses.New,
@@ -180,8 +180,8 @@ test('correct task should be added to correct array', () => {
                 description: "",
                 deadline: "",
                 addedDate: ""
-            }
-    });
+
+    }, "requestID", {todoListID: "todolistId2", inputData:"tea"});
 
     const endState = taskReducer(startState, action)
 
@@ -192,8 +192,12 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"][0].status).toBe(0);
 });
 test('status of specified task should be changed', () => {
-
-    const action = updateTaskAC({taskID: "2", todoListID: "todolistId2", model: {status: TaskStatuses.InProgress}});
+    const updateModel = {taskID: "2", todoListID: "todolistId2", domainModel: {status: TaskStatuses.InProgress}}
+    const action = updateTaskTC.fulfilled(
+        updateModel,
+        "requestID",
+        updateModel
+    );
 
     const endState = taskReducer(startState, action)
 
@@ -202,12 +206,8 @@ test('status of specified task should be changed', () => {
     expect(endState["todolistId2"][1].title).toBe("milk");
 });
 test('title of specified task should be changed', () => {
-
-    const action = updateTaskAC({
-        taskID: "1", todoListID: "todolistId2", model: {
-            title: "butter",
-        }
-    });
+const updateModel = {taskID: "1", todoListID: "todolistId2", domainModel: {title: "butter",}}
+    const action = updateTaskTC.fulfilled(updateModel, "requestId", updateModel);
 
     const endState = taskReducer(startState, action)
 

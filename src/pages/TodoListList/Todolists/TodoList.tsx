@@ -41,7 +41,7 @@ export const TodoList = React.memo(({
     }, [dispatch, todoListID]);
 
     const addTask = useCallback((inputData: string) => {
-        dispatch(createTaskTC(todoListID, inputData ))
+        dispatch(createTaskTC({todoListID, inputData} ))
     },[dispatch, todoListID]);
 
     const changeFilterAll = useCallback(() => {

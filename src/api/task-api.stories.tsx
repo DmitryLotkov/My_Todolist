@@ -80,7 +80,7 @@ export const UpdateTaskTitle = () => {
     }
 
     const updateTask = () =>{
-        taskAPI.updateTaskTitle(todoListID, taskID, model)
+        taskAPI.updateTask(todoListID, taskID, model)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     setState(res.data)

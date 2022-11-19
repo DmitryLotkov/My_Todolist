@@ -48,37 +48,6 @@ export const logOutTC = createAsyncThunk("auth/logout", async (arg, thunkAPI) =>
         handleServerNetworkError(error, thunkAPI.dispatch)
     }
 })
-
-const slice = createSlice({
-    name: "auth",
-    initialState: {
-        isLoggedIn: false,
-        isInitialized: false
-    },
-    reducers: {
-        setIsLoggedInAC(state, action: PayloadAction<{ value: boolean }>) {
-            state.isLoggedIn = action.payload.value
-        },
-        setInitializedAC(state, action: PayloadAction<{ isInitialized: boolean }>) {
-            state.isInitialized = action.payload.isInitialized
-        }
-    },
-    extraReducers: builder => {
-        builder.addCase(loginTC.fulfilled, (state) => {
-            state.isLoggedIn = true
-        })
-        builder.addCase(logOutTC.fulfilled, (state) => {
-            state.isLoggedIn = false
-        })
-    }
-})
-export const loginReducer = slice.reducer;
-// actions
-
-export const setIsLoggedInAC = slice.actions.setIsLoggedInAC;
-export const setInitializedAC = slice.actions.setInitializedAC;
-
-
 export const initializeAppTC = createAsyncThunk("auth/initialize", async (arg, thunkAPI) => {
     try {
         let res = await authAPI.me()
@@ -91,10 +60,40 @@ export const initializeAppTC = createAsyncThunk("auth/initialize", async (arg, t
         }
     } catch (error) {
         handleServerNetworkError(error, thunkAPI.dispatch);
-    } finally {
-            thunkAPI.dispatch(setInitializedAC({isInitialized: true})); // Это надо, чтобы не было бесконечной крутилки. А вообще флаг лечит проблему
-            //передергивания интерфейса с логина на аккаунт
     }
 })
+
+const slice = createSlice({
+    name: "auth",
+    initialState: {
+        isLoggedIn: false,
+        isInitialized: false
+    },
+    reducers: {
+        setIsLoggedInAC(state, action: PayloadAction<{ value: boolean }>) {
+            state.isLoggedIn = action.payload.value
+        },
+    },
+    extraReducers: builder => {
+        builder.addCase(loginTC.fulfilled, (state) => {
+            state.isLoggedIn = true
+        })
+        builder.addCase(logOutTC.fulfilled, (state) => {
+            state.isLoggedIn = false
+        })
+        builder.addCase(initializeAppTC.fulfilled, (state) => {
+            state.isLoggedIn = true
+            state.isInitialized = true
+        })
+    }
+})
+export const loginReducer = slice.reducer;
+// actions
+
+export const setIsLoggedInAC = slice.actions.setIsLoggedInAC;
+
+
+
+
 
 

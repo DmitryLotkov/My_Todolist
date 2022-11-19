@@ -24,11 +24,11 @@ export const Task = React.memo(({todoListID, taskID, entityStatus}: TaskPropsTyp
     const changeTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const newTaskStatus = e.currentTarget.checked;
         const status: number = newTaskStatus ? TaskStatuses.Completed : TaskStatuses.New;
-        dispatch(updateTaskTC(todoListID, taskID, {status}))
+        dispatch(updateTaskTC({taskID, todoListID, domainModel:{status}}))
     }, [dispatch, taskID, todoListID]);
 
     const changeTaskTitle = useCallback((newValue: string) => {
-        dispatch(updateTaskTC(todoListID, taskID, {title: newValue}));
+        dispatch(updateTaskTC({todoListID, taskID, domainModel:{title: newValue}}));
     }, [dispatch, taskID, todoListID]);
 
     const removeTask = useCallback(() => {
