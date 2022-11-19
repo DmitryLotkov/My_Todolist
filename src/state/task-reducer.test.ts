@@ -1,12 +1,11 @@
 import {createTaskTC, deleteTaskTC, fetchTasksTC, taskReducer, updateTaskTC} from "./task-reducer";
 import {TasksStateType} from "../trash/AppOld";
 import {
-    createTodoListAC,
-    removeTodoListAC,
     TodoListDomainType,
     todoListsReducer
 } from "../pages/TodoListList/Todolists/todolistsReducer";
 import {TaskPriorities, TaskStatuses} from "../api/taskAPI";
+import {createTodolistTC, deleteTodoListTC} from "../pages/TodoListList/Todolists/todolistsActions";
 
 
 let startState: TasksStateType;
@@ -217,7 +216,7 @@ const updateModel = {taskID: "1", todoListID: "todolistId2", domainModel: {title
 });
 test('new array should be added when new todolist is added', () => {
 
-    const action = createTodoListAC({todoList: {id: "1", order: 0, addedDate: "", title: "New TD Title"}});
+    const action = createTodolistTC.fulfilled({todoList: {id: "1", order: 0, addedDate: "", title: "New TD Title"}}, "requestID", "New TD Title");
 
     const endState = taskReducer(startState, action)
 
@@ -235,7 +234,7 @@ test('ids should be equals', () => {
     const startTasksState: TasksStateType = {};
     const startTodoListsState: Array<TodoListDomainType> = [];
 
-    const action = createTodoListAC({todoList: {id: "1", order: 0, addedDate: "", title: "New TD Title"}});
+    const action = createTodolistTC.fulfilled({todoList: {id: "1", order: 0, addedDate: "", title: "New TD Title"}}, "requestID", "New TD Title");
 
     const endTasksState = taskReducer(startTasksState, action)
     const endTodoListsState = todoListsReducer(startTodoListsState, action)
@@ -252,7 +251,7 @@ test('ids should be equals', () => {
 
 test('property with todolistId should be deleted', () => {
 
-    const action = removeTodoListAC({todoListID: "todolistId2"});
+    const action = deleteTodoListTC.fulfilled({todoListID: "todolistId2"}, "requestId", "todolistId2");
     const endState = taskReducer(startState, action)
 
     const keys = Object.keys(endState);

@@ -51,12 +51,12 @@ export const TodoListList:React.FC = () =>{
         callBacks.deleteTodoList(todoListID)
     },[dispatch]);
 
-    const changeTodoListTitle = useCallback((title: string, todoListID: string) => {
+    const changeTodoListTitle = useCallback((todoListTitle: string, todoListID: string) => {
 
-        if(title.length >100){
+        if(todoListTitle.length >100){
            return
         }
-        dispatch(changeTodoListTitleTC(title, todoListID));
+        dispatch(changeTodoListTitleTC({todoListTitle, todoListID}));
     },[dispatch]);
     if (!isLoggedIn) {
         return <Navigate to={"/login"}/>
